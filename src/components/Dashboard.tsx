@@ -101,34 +101,34 @@ const Dashboard = () => {
   return (
     <div className="space-y-8">
       {/* Welcome Section */}
-      <div className="bg-gradient-hero rounded-xl p-6 text-primary-foreground animate-fade-in">
-        <div className="flex items-center justify-between flex-wrap gap-4">
-          <div>
-            <h1 className="text-2xl font-bold mb-2">Welcome back, {userProfile.name}!</h1>
-            <p className="text-primary-foreground/90 mb-4">
+      <div className="bg-gradient-hero rounded-2xl p-8 text-primary-foreground animate-fade-in shadow-custom-lg hover-glow">
+        <div className="flex items-center justify-between flex-wrap gap-6">
+          <div className="flex-1">
+            <h1 className="text-3xl font-bold mb-3 animate-float">Welcome back, {userProfile.name}!</h1>
+            <p className="text-primary-foreground/90 mb-6 text-lg">
               Continue your journey to find the perfect educational path
             </p>
-            <div className="flex items-center space-x-4">
-              <Badge variant="secondary" className="bg-white/20 text-primary-foreground border-white/30">
+            <div className="flex items-center space-x-6">
+              <Badge variant="secondary" className="bg-white/20 text-primary-foreground border-white/30 px-4 py-1.5 text-sm">
                 {userProfile.class} • {userProfile.stream}
               </Badge>
-              <span className="text-sm text-primary-foreground/80">
+              <span className="text-sm text-primary-foreground/80 font-medium">
                 Profile {userProfile.profileCompletion}% complete
               </span>
             </div>
           </div>
-          <div className="flex space-x-3">
+          <div className="flex space-x-4">
             {!userProfile.quizCompleted && (
-              <Button asChild variant="secondary" className="bg-white/20 text-primary-foreground border-white/30 hover:bg-white/30">
+              <Button asChild variant="secondary" className="bg-white/20 text-primary-foreground border-white/30 hover:bg-white/30 hover-glow rounded-xl px-6">
                 <Link to="/quiz">
-                  <Trophy className="w-4 h-4 mr-2" />
+                  <Trophy className="w-5 h-5 mr-2" />
                   Take Quiz
                 </Link>
               </Button>
             )}
-            <Button asChild variant="secondary" className="bg-white text-primary hover:bg-white/90">
+            <Button asChild variant="secondary" className="bg-white text-primary hover:bg-white/90 hover-scale rounded-xl px-6 shadow-custom-md">
               <Link to="/colleges">
-                <MapPin className="w-4 h-4 mr-2" />
+                <MapPin className="w-5 h-5 mr-2" />
                 Explore Colleges
               </Link>
             </Button>
@@ -136,28 +136,28 @@ const Dashboard = () => {
         </div>
         
         {/* Profile completion progress */}
-        <div className="mt-4">
+        <div className="mt-6">
           <div className="flex items-center justify-between text-sm mb-2">
             <span className="text-primary-foreground/90">Profile Completion</span>
             <span className="text-primary-foreground">{userProfile.profileCompletion}%</span>
           </div>
-          <Progress value={userProfile.profileCompletion} className="bg-white/20" />
+          <Progress value={userProfile.profileCompletion} className="bg-white/20 h-2" />
         </div>
       </div>
 
       {/* Quick Stats */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 animate-slide-up">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 animate-slide-up">
         {quickStats.map((stat, index) => (
-          <Card key={index} className="hover-lift cursor-pointer">
-            <CardContent className="p-4">
+          <Card key={index} className="hover-lift cursor-pointer glass border-0 rounded-2xl shadow-custom-md">
+            <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-muted-foreground">{stat.title}</p>
-                  <p className="text-2xl font-bold text-foreground">{stat.value}</p>
-                  <p className="text-xs text-accent">{stat.change}</p>
+                  <p className="text-sm text-muted-foreground font-medium">{stat.title}</p>
+                  <p className="text-3xl font-bold text-foreground mt-1">{stat.value}</p>
+                  <p className="text-xs text-accent font-medium mt-1">{stat.change}</p>
                 </div>
-                <div className="p-2 bg-primary-light rounded-lg">
-                  <stat.icon className="w-5 h-5 text-primary" />
+                <div className="p-3 bg-primary-light rounded-xl shadow-custom-sm">
+                  <stat.icon className="w-6 h-6 text-primary" />
                 </div>
               </div>
             </CardContent>

@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X, User, BookOpen, MapPin, Trophy, Calendar } from "lucide-react";
+import { useTheme } from "@/contexts/ThemeContext";
+import { Menu, X, User, BookOpen, MapPin, Trophy, Calendar, Moon, Sun } from "lucide-react";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { theme, toggleTheme } = useTheme();
 
   const navItems = [
     { to: "/", label: "Dashboard", icon: BookOpen },
@@ -15,29 +17,31 @@ const Navigation = () => {
   ];
 
   return (
-    <nav className="bg-card border-b border-border sticky top-0 z-50 backdrop-blur-md bg-card/95">
+    <nav className="glass sticky top-0 z-50 border-b border-border/50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex items-center">
-            <NavLink to="/" className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-gradient-primary rounded-lg flex items-center justify-center">
+            <NavLink to="/" className="flex items-center space-x-3 hover-scale">
+              <div className="w-10 h-10 bg-gradient-primary rounded-xl flex items-center justify-center shadow-custom-md">
                 <BookOpen className="w-5 h-5 text-primary-foreground" />
               </div>
-              <span className="text-xl font-semibold text-foreground">EduAdvisor</span>
+              <span className="text-xl font-semibold bg-gradient-primary bg-clip-text text-transparent">
+                EduAdvisor
+              </span>
             </NavLink>
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-1">
+          <div className="hidden md:flex items-center space-x-2">
             {navItems.map((item) => (
               <NavLink
                 key={item.to}
                 to={item.to}
                 className={({ isActive }) =>
-                  `flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                  `flex items-center space-x-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 ${
                     isActive
-                      ? "bg-primary text-primary-foreground"
-                      : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                      ? "bg-gradient-primary text-primary-foreground shadow-custom-md"
+                      : "text-muted-foreground hover:text-foreground hover:bg-muted/50 hover-lift"
                   }`
                 }
               >
@@ -45,15 +49,41 @@ const Navigation = () => {
                 <span>{item.label}</span>
               </NavLink>
             ))}
+            
+            {/* Theme Toggle */}
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={toggleTheme}
+              className="ml-2 rounded-xl hover-scale"
+            >
+              {theme === 'dark' ? (
+                <Sun className="w-4 h-4" />
+              ) : (
+                <Moon className="w-4 h-4" />
+              )}
+            </Button>
           </div>
 
           {/* Mobile menu button */}
-          <div className="md:hidden flex items-center">
+          <div className="md:hidden flex items-center space-x-2">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={toggleTheme}
+              className="rounded-xl hover-scale"
+            >
+              {theme === 'dark' ? (
+                <Sun className="w-4 h-4" />
+              ) : (
+                <Moon className="w-4 h-4" />
+              )}
+            </Button>
             <Button
               variant="ghost"
               size="sm"
               onClick={() => setIsOpen(!isOpen)}
-              className="text-muted-foreground"
+              className="text-muted-foreground rounded-xl"
             >
               {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </Button>
@@ -62,18 +92,18 @@ const Navigation = () => {
 
         {/* Mobile Navigation */}
         {isOpen && (
-          <div className="md:hidden pb-4 animate-fade-in">
-            <div className="flex flex-col space-y-1">
+          <div className="md:hidden pb-6 px-4 animate-fade-in">
+            <div className="flex flex-col space-y-2">
               {navItems.map((item) => (
                 <NavLink
                   key={item.to}
                   to={item.to}
                   onClick={() => setIsOpen(false)}
                   className={({ isActive }) =>
-                    `flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                    `flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-300 ${
                       isActive
-                        ? "bg-primary text-primary-foreground"
-                        : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                        ? "bg-gradient-primary text-primary-foreground shadow-custom-md"
+                        : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
                     }`
                   }
                 >
