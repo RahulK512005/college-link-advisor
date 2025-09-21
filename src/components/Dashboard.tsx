@@ -12,7 +12,8 @@ import {
   ArrowRight,
   GraduationCap,
   Target,
-  Award
+  Award,
+  ExternalLink
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -255,33 +256,84 @@ const Dashboard = () => {
             ))}
           </div>
 
-          {/* Quick Actions */}
-          <Card className="bg-gradient-card border-0">
-            <CardHeader className="pb-3">
-              <CardTitle className="text-base">Quick Actions</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-2">
-              <Button variant="outline" size="sm" className="w-full justify-start" asChild>
-                <Link to="/scholarships">
-                  <Award className="w-4 h-4 mr-2" />
-                  Browse Scholarships
-                </Link>
-              </Button>
-              <Button variant="outline" size="sm" className="w-full justify-start" asChild>
-                <Link to="/resources">
-                  <BookOpen className="w-4 h-4 mr-2" />
-                  Study Resources
-                </Link>
-              </Button>
-              <Button variant="outline" size="sm" className="w-full justify-start" asChild>
-                <Link to="/career-paths">
-                  <TrendingUp className="w-4 h-4 mr-2" />
-                  Career Paths
-                </Link>
-              </Button>
-            </CardContent>
-          </Card>
+
         </div>
+      </div>
+
+      {/* Mini Tabs Section */}
+      <div className="grid lg:grid-cols-2 gap-6">
+        {/* Scholarships Mini Tab */}
+        <Card className="hover-lift">
+          <CardHeader className="pb-3">
+            <CardTitle className="flex items-center space-x-2 text-lg">
+              <Award className="w-5 h-5 text-primary" />
+              <span>Scholarships for 12th Completed</span>
+            </CardTitle>
+            <CardDescription>Top scholarships for Indian students after 12th grade</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            {[
+              { name: "INSPIRE Scholarship", amount: "₹80,000/year", org: "DST, Govt of India" },
+              { name: "KVPY Fellowship", amount: "₹5,000-7,000/month", org: "IISc Bangalore" },
+              { name: "Tata Trusts Scholarship", amount: "₹2,00,000/year", org: "Tata Trusts" },
+              { name: "Reliance Foundation", amount: "₹2,00,000/year", org: "Reliance Foundation" },
+              { name: "AICTE Pragati", amount: "₹50,000/year", org: "AICTE" }
+            ].map((scholarship, index) => (
+              <div key={index} className="flex items-center justify-between p-3 bg-muted/50 rounded-lg">
+                <div>
+                  <h4 className="font-medium text-sm">{scholarship.name}</h4>
+                  <p className="text-xs text-muted-foreground">{scholarship.org}</p>
+                </div>
+                <div className="text-right">
+                  <p className="text-sm font-medium text-primary">{scholarship.amount}</p>
+                </div>
+              </div>
+            ))}
+            <Button variant="outline" size="sm" className="w-full mt-3" asChild>
+              <Link to="/timeline?tab=scholarships">
+                <ExternalLink className="w-4 h-4 mr-2" />
+                View All Scholarships
+              </Link>
+            </Button>
+          </CardContent>
+        </Card>
+
+        {/* Books Mini Tab */}
+        <Card className="hover-lift">
+          <CardHeader className="pb-3">
+            <CardTitle className="flex items-center space-x-2 text-lg">
+              <BookOpen className="w-5 h-5 text-primary" />
+              <span>Essential IT Books</span>
+            </CardTitle>
+            <CardDescription>Top books for Computer Science and IT students</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            {[
+              { title: "Introduction to Algorithms", author: "Cormen, Leiserson, Rivest", rating: "4.8" },
+              { title: "Deep Learning", author: "Ian Goodfellow, Yoshua Bengio", rating: "4.7" },
+              { title: "Python Crash Course", author: "Eric Matthes", rating: "4.6" },
+              { title: "Clean Code", author: "Robert C. Martin", rating: "4.5" },
+              { title: "System Design Interview", author: "Alex Xu", rating: "4.4" }
+            ].map((book, index) => (
+              <div key={index} className="flex items-center justify-between p-3 bg-muted/50 rounded-lg">
+                <div>
+                  <h4 className="font-medium text-sm">{book.title}</h4>
+                  <p className="text-xs text-muted-foreground">{book.author}</p>
+                </div>
+                <div className="flex items-center space-x-1">
+                  <Star className="w-3 h-3 fill-yellow-400 text-yellow-400" />
+                  <span className="text-sm font-medium">{book.rating}</span>
+                </div>
+              </div>
+            ))}
+            <Button variant="outline" size="sm" className="w-full mt-3" asChild>
+              <Link to="/timeline?tab=books">
+                <ExternalLink className="w-4 h-4 mr-2" />
+                View All Books
+              </Link>
+            </Button>
+          </CardContent>
+        </Card>
       </div>
     </div>
   );

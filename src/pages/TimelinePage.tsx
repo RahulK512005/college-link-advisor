@@ -1,6 +1,8 @@
+import { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { 
   Calendar, 
   Clock, 
@@ -9,8 +11,12 @@ import {
   CheckCircle,
   BookOpen,
   GraduationCap,
-  Award
+  Award,
+  Trophy,
+  Book
 } from "lucide-react";
+import Scholarships from "@/components/Scholarships";
+import Books from "@/components/Books";
 
 const TimelinePage = () => {
   const events = [
@@ -109,10 +115,10 @@ const TimelinePage = () => {
         <CardHeader>
           <CardTitle className="flex items-center space-x-2 text-2xl">
             <Calendar className="w-6 h-6" />
-            <span>Academic Timeline</span>
+            <span>Timeline & Resources</span>
           </CardTitle>
           <CardDescription className="text-primary-foreground/90">
-            Stay on top of important deadlines, entrance exams, and admission dates
+            Stay on top of important deadlines, discover scholarships, and find essential books
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -137,8 +143,26 @@ const TimelinePage = () => {
         </CardContent>
       </Card>
 
-      {/* Upcoming Events */}
-      <div className="space-y-4">
+      {/* Tabs */}
+      <Tabs defaultValue="timeline" className="w-full">
+        <TabsList className="grid w-full grid-cols-3">
+          <TabsTrigger value="timeline" className="flex items-center space-x-2">
+            <Calendar className="w-4 h-4" />
+            <span>Timeline</span>
+          </TabsTrigger>
+          <TabsTrigger value="scholarships" className="flex items-center space-x-2">
+            <Trophy className="w-4 h-4" />
+            <span>Scholarships</span>
+          </TabsTrigger>
+          <TabsTrigger value="books" className="flex items-center space-x-2">
+            <Book className="w-4 h-4" />
+            <span>Books</span>
+          </TabsTrigger>
+        </TabsList>
+
+        <TabsContent value="timeline" className="space-y-6">
+          {/* Upcoming Events */}
+          <div className="space-y-4">
         <div className="flex items-center justify-between">
           <h2 className="text-xl font-semibold text-foreground">Upcoming Events</h2>
           <Button variant="outline" size="sm">
@@ -240,6 +264,16 @@ const TimelinePage = () => {
           </div>
         </div>
       )}
+        </TabsContent>
+
+        <TabsContent value="scholarships">
+          <Scholarships />
+        </TabsContent>
+
+        <TabsContent value="books">
+          <Books />
+        </TabsContent>
+      </Tabs>
     </div>
   );
 };

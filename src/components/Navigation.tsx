@@ -2,18 +2,19 @@ import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "@/contexts/ThemeContext";
-import { Menu, X, User, BookOpen, MapPin, Trophy, Calendar, Moon, Sun } from "lucide-react";
+import { Menu, X, User, BookOpen, MapPin, Route, Calendar, Moon, Sun, Brain } from "lucide-react";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { theme, toggleTheme } = useTheme();
 
   const navItems = [
-    { to: "/", label: "Dashboard", icon: BookOpen },
-    { to: "/quiz", label: "Aptitude Quiz", icon: Trophy },
-    { to: "/colleges", label: "Colleges", icon: MapPin },
-    { to: "/timeline", label: "Timeline", icon: Calendar },
-    { to: "/profile", label: "Profile", icon: User },
+    { to: "/", label: "Dashboard", icon: BookOpen, external: false },
+    { to: "https://v0-eduadvisor1211.vercel.app/", label: "Career Quiz", icon: Brain, external: true },
+    { to: "https://v0-data-display-webpage-seven.vercel.app/", label: "Roadmap", icon: Route, external: true },
+    { to: "/colleges", label: "Colleges", icon: MapPin, external: false },
+    { to: "/timeline", label: "Timeline & Resources", icon: Calendar, external: false },
+    { to: "/profile", label: "Profile", icon: User, external: false },
   ];
 
   return (
@@ -33,22 +34,38 @@ const Navigation = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-2">
-            {navItems.map((item) => (
-              <NavLink
-                key={item.to}
-                to={item.to}
-                className={({ isActive }) =>
-                  `flex items-center space-x-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 ${
-                    isActive
-                      ? "bg-gradient-primary text-primary-foreground shadow-custom-md"
-                      : "text-muted-foreground hover:text-foreground hover:bg-muted/50 hover-lift"
-                  }`
-                }
-              >
-                <item.icon className="w-4 h-4" />
-                <span>{item.label}</span>
-              </NavLink>
-            ))}
+            {navItems.map((item) => {
+              if (item.external === true) {
+                return (
+                  <a
+                    key={item.to}
+                    href={item.to}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center space-x-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 text-muted-foreground hover:text-foreground hover:bg-muted/50 hover-lift"
+                  >
+                    <item.icon className="w-4 h-4" />
+                    <span>{item.label}</span>
+                  </a>
+                );
+              }
+              return (
+                <NavLink
+                  key={item.to}
+                  to={item.to}
+                  className={({ isActive }) =>
+                    `flex items-center space-x-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 ${
+                      isActive
+                        ? "bg-gradient-primary text-primary-foreground shadow-custom-md"
+                        : "text-muted-foreground hover:text-foreground hover:bg-muted/50 hover-lift"
+                    }`
+                  }
+                >
+                  <item.icon className="w-4 h-4" />
+                  <span>{item.label}</span>
+                </NavLink>
+              );
+            })}
             
             {/* Theme Toggle */}
             <Button
@@ -94,23 +111,40 @@ const Navigation = () => {
         {isOpen && (
           <div className="md:hidden pb-6 px-4 animate-fade-in">
             <div className="flex flex-col space-y-2">
-              {navItems.map((item) => (
-                <NavLink
-                  key={item.to}
-                  to={item.to}
-                  onClick={() => setIsOpen(false)}
-                  className={({ isActive }) =>
-                    `flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-300 ${
-                      isActive
-                        ? "bg-gradient-primary text-primary-foreground shadow-custom-md"
-                        : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
-                    }`
-                  }
-                >
-                  <item.icon className="w-4 h-4" />
-                  <span>{item.label}</span>
-                </NavLink>
-              ))}
+              {navItems.map((item) => {
+                if (item.external === true) {
+                  return (
+                    <a
+                      key={item.to}
+                      href={item.to}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => setIsOpen(false)}
+                      className="flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-300 text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                    >
+                      <item.icon className="w-4 h-4" />
+                      <span>{item.label}</span>
+                    </a>
+                  );
+                }
+                return (
+                  <NavLink
+                    key={item.to}
+                    to={item.to}
+                    onClick={() => setIsOpen(false)}
+                    className={({ isActive }) =>
+                      `flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-300 ${
+                        isActive
+                          ? "bg-gradient-primary text-primary-foreground shadow-custom-md"
+                          : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                      }`
+                    }
+                  >
+                    <item.icon className="w-4 h-4" />
+                    <span>{item.label}</span>
+                  </NavLink>
+                );
+              })}
             </div>
           </div>
         )}
