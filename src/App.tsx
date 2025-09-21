@@ -13,6 +13,7 @@ import QuizPage from "./pages/QuizPage";
 import LoginPage from "./pages/LoginPage";
 import WelcomePage from "./pages/WelcomePage";
 import QuizRedirectPage from "./pages/QuizRedirectPage";
+import QuizCompletePage from "./pages/QuizCompletePage";
 import NotFound from "./pages/NotFound";
 import Navigation from "./components/Navigation";
 
@@ -30,6 +31,7 @@ const App = () => (
               <Routes>
                 <Route path="/" element={<WelcomePage />} />
                 <Route path="/quiz-redirect" element={<QuizRedirectPage />} />
+                <Route path="/quiz-complete" element={<QuizCompletePage />} />
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/dashboard" element={
                   <>

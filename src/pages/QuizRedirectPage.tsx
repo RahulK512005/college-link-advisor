@@ -1,18 +1,9 @@
-import { useEffect } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { BookOpen, Brain, ArrowRight, Clock } from "lucide-react";
+import { BookOpen, Brain, ArrowRight, Clock, CheckCircle } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const QuizRedirectPage = () => {
-  useEffect(() => {
-    // Auto-redirect to quiz after 3 seconds
-    const timer = setTimeout(() => {
-      window.location.href = "https://v0-edu2-mun8.vercel.app/";
-    }, 3000);
-
-    return () => clearTimeout(timer);
-  }, []);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 dark:from-gray-900 dark:via-indigo-900 dark:to-purple-900 flex items-center justify-center p-4">
@@ -71,18 +62,25 @@ const QuizRedirectPage = () => {
                 className="w-full h-14 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-medium rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 text-lg"
                 onClick={() => window.location.href = "https://v0-edu2-mun8.vercel.app/"}
               >
-                Start Career Quiz
+                Take Quiz Now
                 <ArrowRight className="w-5 h-5 ml-2" />
               </Button>
               
-              <p className="text-xs text-gray-500 dark:text-gray-400 text-center">
-                Redirecting automatically in 3 seconds...
-              </p>
+              <Button 
+                variant="outline"
+                className="w-full h-14 border-2 border-green-500 text-green-600 hover:bg-green-50 dark:hover:bg-green-900/20 font-medium rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 text-lg"
+                asChild
+              >
+                <Link to="/quiz-complete" className="flex items-center justify-center">
+                  <CheckCircle className="w-5 h-5 mr-2" />
+                  Already Completed Quiz
+                </Link>
+              </Button>
             </div>
 
             <div className="pt-4 border-t border-gray-200 dark:border-gray-700">
               <p className="text-sm text-gray-600 dark:text-gray-400 text-center">
-                After completing the quiz, you'll return here to complete your registration and access your personalized dashboard.
+                Choose "Take Quiz Now" if you haven't taken the assessment yet, or "Already Completed Quiz" if you've finished it.
               </p>
             </div>
           </CardContent>
