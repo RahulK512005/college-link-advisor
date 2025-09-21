@@ -12,7 +12,6 @@ const Navigation = () => {
 
   const navItems = [
     { to: "/dashboard", label: "Dashboard", icon: BookOpen, external: false },
-    { to: "https://v0-eduadvisor1211.vercel.app/", label: "Career Quiz", icon: Brain, external: true },
     { to: "https://v0-data-display-webpage-seven.vercel.app/", label: "Roadmap", icon: Route, external: true },
     { to: "/colleges", label: "Colleges", icon: MapPin, external: false },
     { to: "/timeline", label: "Timeline & Resources", icon: Calendar, external: false },

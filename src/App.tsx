@@ -12,6 +12,7 @@ import TimelineResourcesPage from "./pages/TimelineResourcesPage";
 import QuizPage from "./pages/QuizPage";
 import LoginPage from "./pages/LoginPage";
 import WelcomePage from "./pages/WelcomePage";
+import QuizRedirectPage from "./pages/QuizRedirectPage";
 import NotFound from "./pages/NotFound";
 import Navigation from "./components/Navigation";
 
@@ -28,6 +29,7 @@ const App = () => (
             <div className="min-h-screen bg-background transition-colors duration-500">
               <Routes>
                 <Route path="/" element={<WelcomePage />} />
+                <Route path="/quiz-redirect" element={<QuizRedirectPage />} />
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/dashboard" element={
                   <>

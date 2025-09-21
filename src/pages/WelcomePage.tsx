@@ -147,7 +147,7 @@ const WelcomePage = () => {
                   asChild
                   className="w-full bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white rounded-xl h-12 font-medium shadow-lg"
                 >
-                  <Link to="/login">
+                  <Link to="/quiz-redirect">
                     Get Started
                     <ArrowRight className="w-4 h-4 ml-2" />
                   </Link>
