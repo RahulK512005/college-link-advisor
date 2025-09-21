@@ -16,13 +16,16 @@ import {
   ExternalLink
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useAuth } from "@/contexts/AuthContext";
 
 const Dashboard = () => {
-  // Mock user data - in real app, this would come from API/database
+  const { user } = useAuth();
+  
+  // User data from authentication context
   const userProfile = {
-    name: "Priya Sharma",
-    class: "Class 12",
-    stream: "Science",
+    name: user?.name || "Student",
+    class: user?.class === '12th' ? "Class 12" : "Class 10",
+    stream: user?.stream || "Science",
     quizCompleted: true,
     profileCompletion: 75,
   };

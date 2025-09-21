@@ -17,26 +17,36 @@ import {
   Settings,
   Bell,
   Shield,
-  HelpCircle
+  HelpCircle,
+  LogOut
 } from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { useAuth } from "@/contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const UserProfile = () => {
+  const { user, updateUser, logout } = useAuth();
+  const navigate = useNavigate();
   const [isEditing, setIsEditing] = useState(false);
   const [profileData, setProfileData] = useState({
-    name: "Priya Sharma",
-    email: "priya.sharma@email.com",
-    phone: "+91-98765-43210",
+    name: user?.name || "Student",
+    email: user?.email || "",
+    phone: user?.phone || "",
     dateOfBirth: "2006-03-15",
-    class: "12",
-    stream: "Science",
-    school: "Government Higher Secondary School",
+    class: user?.class === '12th' ? "12" : "10",
+    stream: user?.stream || "Science",
+    school: user?.school || "",
     city: "Ahmedabad",
     state: "Gujarat",
     interests: ["Computer Science", "Mathematics", "Research"],
     careerGoals: "I want to pursue Computer Science and work in technology sector, preferably in software development or artificial intelligence.",
   });
+
+  const handleLogout = () => {
+    logout();
+    navigate('/');
+  };
 
   const [achievements] = useState([
     { title: "Quiz Master", description: "Completed aptitude quiz with 87% score", icon: Trophy, date: "Mar 2024" },
@@ -51,8 +61,13 @@ const UserProfile = () => {
   ]);
 
   const handleSave = () => {
+    updateUser({
+      name: profileData.name,
+      phone: profileData.phone,
+      stream: profileData.stream,
+      school: profileData.school
+    });
     setIsEditing(false);
-    // Here you would save to API/database
   };
 
   const handleInputChange = (field: string, value: string) => {
@@ -88,14 +103,24 @@ const UserProfile = () => {
                 <p className="text-primary-foreground/80 text-sm">{profileData.city}, {profileData.state}</p>
               </div>
             </div>
-            <Button
-              variant="secondary"
-              className="bg-white/20 text-primary-foreground border-white/30 hover:bg-white/30"
-              onClick={() => setIsEditing(!isEditing)}
-            >
-              {isEditing ? <Save className="w-4 h-4 mr-2" /> : <Edit3 className="w-4 h-4 mr-2" />}
-              {isEditing ? "Save" : "Edit Profile"}
-            </Button>
+            <div className="flex space-x-2">
+              <Button
+                variant="secondary"
+                className="bg-white/20 text-primary-foreground border-white/30 hover:bg-white/30"
+                onClick={() => setIsEditing(!isEditing)}
+              >
+                {isEditing ? <Save className="w-4 h-4 mr-2" /> : <Edit3 className="w-4 h-4 mr-2" />}
+                {isEditing ? "Save" : "Edit Profile"}
+              </Button>
+              <Button
+                variant="secondary"
+                className="bg-red-500/20 text-primary-foreground border-red-300/30 hover:bg-red-500/30"
+                onClick={handleLogout}
+              >
+                <LogOut className="w-4 h-4 mr-2" />
+                Logout
+              </Button>
+            </div>
           </div>
           
           <div className="mt-4">

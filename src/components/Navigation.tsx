@@ -2,14 +2,16 @@ import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "@/contexts/ThemeContext";
-import { Menu, X, User, BookOpen, MapPin, Route, Calendar, Moon, Sun, Brain } from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext";
+import { Menu, X, User, BookOpen, MapPin, Route, Calendar, Moon, Sun, Brain, LogOut } from "lucide-react";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { theme, toggleTheme } = useTheme();
+  const { user, logout } = useAuth();
 
   const navItems = [
-    { to: "/", label: "Dashboard", icon: BookOpen, external: false },
+    { to: "/dashboard", label: "Dashboard", icon: BookOpen, external: false },
     { to: "https://v0-eduadvisor1211.vercel.app/", label: "Career Quiz", icon: Brain, external: true },
     { to: "https://v0-data-display-webpage-seven.vercel.app/", label: "Roadmap", icon: Route, external: true },
     { to: "/colleges", label: "Colleges", icon: MapPin, external: false },
@@ -66,6 +68,23 @@ const Navigation = () => {
                 </NavLink>
               );
             })}
+            
+            {/* Auth Button */}
+            {user ? (
+              <Button 
+                variant="outline" 
+                size="sm" 
+                className="ml-2 rounded-xl"
+                onClick={logout}
+              >
+                <LogOut className="w-4 h-4 mr-1" />
+                Logout
+              </Button>
+            ) : (
+              <Button asChild variant="outline" size="sm" className="ml-2 rounded-xl">
+                <NavLink to="/login">Login</NavLink>
+              </Button>
+            )}
             
             {/* Theme Toggle */}
             <Button
